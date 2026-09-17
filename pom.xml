@@ -92,7 +92,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-                    <finalName>github-action</finalName>
+                    <finalName>github-action-example</finalName>
                 </configuration>
 			</plugin>
 		</plugins>
