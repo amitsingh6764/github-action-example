@@ -8,7 +8,7 @@ public class Gitaction {
 
 	@GetMapping("/getName")
 	public String getName() {
-		return "Hello Amit!";
+		return "Hello Amit Singh!";
 	}
 
 }
