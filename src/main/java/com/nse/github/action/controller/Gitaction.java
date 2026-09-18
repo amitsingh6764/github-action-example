@@ -25,7 +25,7 @@ public class Gitaction {
 
 	@GetMapping("/getName")
 	public String getName() {
-		return "Hello Amit Singh!";
+		return "Hello Amit Singh what is going on!";
 	}
 	
 
