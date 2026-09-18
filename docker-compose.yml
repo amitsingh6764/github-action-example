@@ -1,36 +1,7 @@
 services:
 
-  oracle-db:
-    image: gvenzl/oracle-free:23-slim
-
-    container_name: oracle-db
-
-    ports:
-      - "1527:1521"
-
-    environment:
-      ORACLE_PASSWORD: NewPass123
-      APP_USER: MYAPP
-      APP_USER_PASSWORD: NewPass123
-
-    volumes:
-      - oracle-data:/opt/oracle/oradata
-
-    healthcheck:
-      test: ["CMD-SHELL", "healthcheck.sh"]
-
-      interval: 10s
-      timeout: 5s
-      retries: 30
-      start_period: 60s
-
   app:
-    image: amitsingh213/github-action-example:latest
-
-    build:
-      context: .
-      dockerfile: Dockerfile
-
+    build: .
     container_name: myapp
 
     ports:
@@ -45,5 +16,40 @@ services:
       oracle-db:
         condition: service_healthy
 
+    networks:
+      - app-network
+
+
+  oracle-db:
+    image: gvenzl/oracle-free:23-slim
+    container_name: oracle-db
+
+    ports:
+      - "1527:1521"
+
+    environment:
+      ORACLE_PASSWORD: NewPass123
+      APP_USER: MYAPP
+      APP_USER_PASSWORD: NewPass123
+
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+
+    networks:
+      - app-network
+
+
 volumes:
   oracle-data:
+
+
+networks:
+  app-network:
+    driver: bridge
